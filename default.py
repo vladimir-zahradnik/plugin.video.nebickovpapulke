@@ -32,10 +32,16 @@ args = urlparse.parse_qs(sys.argv[2][1:])
 
 xbmcplugin.setContent(addon_handle, 'movies')
 
+MODE_LIST_EPISODES = 'list_episodes'
+MODE_VIEW_EPISODE_DETAILS = 'episode_details'
 MODE_PLAY_EPISODE = 'play_episode'
 
 def build_url(query):
     addon_base_url = sys.argv[0]
+
+    # Remove query items which have meaningless value
+    query = {k: v for k, v in query.iteritems() if v}
+
     return addon_base_url + '?' + urllib.urlencode(query)
 
 def get_http_data_from_url(url):
@@ -51,20 +57,24 @@ def notify(msg, timeout = 5000):
     xbmc.executebuiltin('Notification(%s, %s, %d, %s)'%(addon.getAddonInfo('name'), msg,
                                                         timeout, addon.getAddonInfo('icon')))
 
-def add_item(name, url, mode, isFolder=False):
-    plugin_url = build_url({'url': url, 'mode': mode, 'name': name})
+def add_item(name, mode, url=None, plugin_url=None, isFolder=False):
+
+    if not plugin_url:
+        plugin_url = build_url({'url': url, 'mode': mode, 'name': name})
+
     li = xbmcgui.ListItem(name, iconImage="DefaultFolder.png")
 
+    notify(plugin_url)
     result = xbmcplugin.addDirectoryItem(handle=addon_handle, url=plugin_url,
                                          listitem=li, isFolder=isFolder)
     return result
 
 
-def add_directory(name, url, mode=None):
-    return add_item(name, url, mode, isFolder=True)
+def add_directory(name, mode, url):
+    return add_item(name, mode, url, isFolder=True)
 
 
-def translation(id):
+def translate(id):
     return addon.getLocalizedString(id).encode('utf-8')
 
 def list_archived_shows():
@@ -85,7 +95,7 @@ def list_archived_shows():
     match = re.compile(pattern, re.DOTALL).findall(content)
 
     for aired, url, episode, name in match:
-        add_directory(translation(30000) + " " + episode + ": " + name, web_base_url + url, MODE_PLAY_EPISODE)
+        add_directory(translate(30000) + " " + episode + ": " + name, MODE_VIEW_EPISODE_DETAILS, web_base_url + url)
 
     # Check if there is more episodes
     pattern = 'class="pager-next.*?<a href="(.*?)"'
@@ -93,11 +103,30 @@ def list_archived_shows():
 
     if match:
         url = match[0]
-        add_directory("[B]" + translation(30001) +"[/B]", web_base_url + url)
+        add_directory("[B]" + translate(30001) +"[/B]", MODE_LIST_EPISODES, web_base_url + url)
 
     xbmcplugin.endOfDirectory(addon_handle)
 
+def view_episode_details():
+    url = args.get('url')[0]
+
+    content = get_http_data_from_url(url)
+
+    # Parse episode info and get Video ID for Vimeo
+    pattern = 'player.vimeo.com/video/(\d+)\?'
+    match = re.compile(pattern).findall(content)
+
+    if match:
+        add_item('Epizoda', MODE_PLAY_EPISODE, plugin_url='plugin://plugin.video.vimeo/play/?video_id=' + match[0])
+
+    notify('plugin://plugin.video.vimeo/play/?video_id=' + match[0])
+    xbmcplugin.endOfDirectory(addon_handle)
+
+
 mode = args.get('mode', None)
 
-#if mode is None:
-list_archived_shows()
+if mode is None or mode[0] == MODE_LIST_EPISODES:
+    list_archived_shows()
+
+elif mode[0] == MODE_VIEW_EPISODE_DETAILS:
+    view_episode_details()

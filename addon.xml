@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <addon id="plugin.video.nebickovpapulke" name="Nebíčko v papuľke" provider-name="Vladimír Záhradník" version="0.0.1">
   <requires>
-    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="xbmc.python" version="2.14.0" />
+    <import addon="plugin.video.vimeo" version="4.1.4" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource" provides="video">
     <provides>video</provides>
