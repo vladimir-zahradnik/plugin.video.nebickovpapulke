@@ -2,4 +2,12 @@
 <strings>
     <string id="30000">Epizóda</string>
     <string id="30001">Viac epizód</string>
+
+    <string id="30050">Kvalita videa</string>
+	<string id="30051">Spýtať sa</string>
+	<string id="30052">Najlepšie</string>
+	<string id="30053">Najhoršie</string>
+	<string id="30054">720p</string>
+	<string id="30055">360p</string>
+	<string id="30056">270p</string>
 </strings>
