@@ -31,7 +31,7 @@ __scriptname__ = 'nebickovpapulke.sk'
 __addon__      = xbmcaddon.Addon(id=__scriptid__)
 __language__   = __addon__.getLocalizedString
 
-settings = {'quality':__addon__.getSetting('quality')}
+settings = {'downloads':__addon__.getSetting('downloads'), 'quality':__addon__.getSetting('quality')}
 params = util.params()
 if params=={}:
     xbmcutil.init_usage_reporting(__scriptid__)
