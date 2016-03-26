@@ -1,21 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
-<addon id="plugin.video.nebickovpapulke" name="Nebíčko v papuľke" provider-name="Vladimír Záhradník" version="0.0.1">
+<addon id="plugin.video.nebickovpapulke.sk" name="nebickovpapulke.sk" provider-name="Vladimír Záhradník" version="0.0.1">
   <requires>
     <import addon="xbmc.python" version="2.14.0" />
-    <import addon="plugin.video.vimeo" version="4.1.4" />
+    <import addon="script.module.stream.resolver" version="1.6.24" />
   </requires>
   <extension library="default.py" point="xbmc.python.pluginsource" provides="video">
     <provides>video</provides>
   </extension>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Nebíčko v papuľke</summary>
-    <summary lang="cs">Nebíčko v papuľke</summary>
-    <summary lang="sk">Nebíčko v papuľke</summary>
-    <description lang="en">Watch archive of TV show Nebíčko v papuľke, which was originally aired on RTVS (www.rtvs.sk). This TV show is available only in Slovak language.</description>
+    <summary lang="en">nebickovpapulke.sk</summary>
+    <summary lang="cs">nebickovpapulke.sk</summary>
+    <summary lang="sk">nebickovpapulke.sk</summary>
+    <description lang="en">Watch archive of TV show "Nebíčko v papuľke", which was originally aired on RTVS (www.rtvs.sk). This TV show is available only in Slovak language.</description>
     <description lang="cs">Sledujte archiv pořadu "Nebíčko v papuľke". Jde o televizní gastronomický bedekr, který byl v minulosti vysílaný na obrazovkách RTVS (www.rtvs.sk). Cez "kuchyňské okno" se podíváme na různá místa a představíme netradiční recepty z tradičních surovin. Prostřednictvím domácího průvodce poznáme místní krásy, zaujímavé lidi, speciality, názvy jídel a něco se přiučí i šéfkuchař.</description>
     <description lang="sk">Sledujte archív relácie Nebíčko v papuľke. Ide o televízny gastronomický bedeker, ktorý bol v minulosti vysielaný na obrazovkách RTVS (www.rtvs.sk). Cez "kuchynské okno" nazrieme do rôznych lokalít a predstavíme netradičné recepty z tradičných surovín. Prostredníctvom domáceho sprievodcu spoznáme miestne krásy, zaujímavých ľudí, špeciality, názvy jedál a čosi sa priučí i šéfkuchár.</description>
     <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
     <platform>all</platform>
-    <source>https://github.com/vladimir-zahradnik/plugin.video.nebickovpapulke</source>
+    <source>https://github.com/vladimir-zahradnik/plugin.video.nebickovpapulke.sk</source>
   </extension>
 </addon>
