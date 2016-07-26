@@ -24,25 +24,17 @@ __author__ = 'vladimir.zahradnik'
 
 from resources.lib.http import HttpClient
 
-class Client(HttpClient):
 
-    def __init__(self, access_token='', client_id='', client_secret='', items_per_page=50):
+class Client(HttpClient):
+    _host = 'www.nebickovpapulke.sk:80'
+    _user_agent = 'Mozilla/6.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.9.0.5) Gecko/2008092417 Firefox/3.0.3'
+
+    def __init__(self, items_per_page=50):
         HttpClient.__init__(self, default_header={'Accept-Encoding': 'gzip',
-                                                               'Host': 'api.soundcloud.com:443',
-                                                               'Connection': 'Keep-Alive',
-                                                               'User-Agent': 'SoundCloud-Android/15.09.14-release (Android 5.0.1; samsung GT-I9505)'})
-        self._access_token = access_token
+                                                  'Host': self._host,
+                                                  'Connection': 'Keep-Alive',
+                                                  'User-Agent': self._user_agent})
         self._items_per_page = items_per_page
 
-        # set client id with fallback
-        self._client_id = self.CLIENT_ID
-        if client_id:
-            self._client_id = client_id
-            pass
-
-        # set client secret with fallback
-        self._client_secret = self.CLIENT_SECRET
-        if client_secret:
-            self._client_secret = client_secret
-            pass
-        pass
+    def _create_url(self, path):
+        return 'http://{0}/{1}'.format(unicode(self._host, 'utf-8'), unicode(path, 'utf-8'))

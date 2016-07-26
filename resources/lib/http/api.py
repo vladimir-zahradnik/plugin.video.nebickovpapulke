@@ -6,9 +6,7 @@ import urllib2
 from StringIO import StringIO
 import gzip
 import json as real_json
-
-# nightcrawler
-from .. import utils
+import resources.lib.utils as utils
 
 
 class ErrorHandler(urllib2.HTTPDefaultErrorHandler):
